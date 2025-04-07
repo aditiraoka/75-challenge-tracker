@@ -4,7 +4,11 @@
   "description": "A custom desktop app to track habits, weight, and journaling for a 75-day challenge. Built with Electron, Next.js, Node.js &amp; SQLite. Features include daily tracking, reminders, streaks, journaling, and data export. Designed for personal growth and learning full-stack desktop app dev.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:electron": "wait-on http://localhost:3000 && cross-env NODE_ENV=development electron ./electron/main.js",
+    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently -k -n BACKEND,FRONTEND,ELECTRON -c green,cyan,magenta \"npm run dev:frontend\" \"npm run dev:electron\" \"npm run dev:backend\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,9 @@
   },
   "homepage": "https://github.com/aditiraoka/75-challenge-tracker#readme",
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^35.1.4",
+    "wait-on": "^8.0.3"
   }
 }

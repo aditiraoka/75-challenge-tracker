@@ -22,3 +22,13 @@ To learn more about 75 hard challenge, checkout [this website](https://andyfrise
 ├── .gitignore
 └── README.md
 ```
+
+
+## Installation
+1. Download the project
+2. From the root directory run the following:
+    Starting it in Dev environment
+    
+    ```
+        npm run dev
+    ```
