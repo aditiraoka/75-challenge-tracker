@@ -12,11 +12,11 @@ app.use(express.json());
 
 //Testing server
 const ping = require('./routes/test');
-app.use('/api', ping);
+app.use('/api/ping', ping);
 
 //Task Routes
 const taskRoutes = require('./routes/tasks');
-app.use('/api', taskRoutes);
+app.use('/api/tasks', taskRoutes);
 
 //Start server
 app.listen(PORT, ()=> {

@@ -11,9 +11,16 @@ datasource db {
   //url = "file:./dev.db"
 }
 
+model Day {
+  id Int @id @default(autoincrement())
+  date DateTime
+  tasks Task[]
+}
+
 model Task{
   id  Int @id @default(autoincrement())
-  title String
-  completed Boolean @default(false)
-  createdAt DateTime @default(now())
+  dayId Int
+  taskName String
+  status String //'Pending' or 'Done'
+  day Day @relation(fields: [dayId], references: [id])
 }

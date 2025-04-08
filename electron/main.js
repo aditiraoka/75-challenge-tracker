@@ -1,4 +1,7 @@
 // electron/main.js
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/../node_modules/electron`)
+});
 
 const { app, BrowserWindow } = require('electron');
 
@@ -18,7 +21,7 @@ function createWindow() {
   // Load URL in dev or built index.html in production
   if (isDev) {
     win.loadURL('http://localhost:3000');
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();  // opens debugger by default
   } else {
     const indexPath = path.join(__dirname, "../frontend/out/index.html")
     win.loadFile(path.join(indexPath));
