@@ -9,9 +9,14 @@ app.use(cors());
 app.use(express.json());
 
 //Routes
-app.get('/api/ping', (req, res) => {
-    res.json({ message:'pong'});
-});
+
+//Testing server
+const ping = require('./routes/test');
+app.use('/api', ping);
+
+//Task Routes
+const taskRoutes = require('./routes/tasks');
+app.use('/api', taskRoutes);
 
 //Start server
 app.listen(PORT, ()=> {

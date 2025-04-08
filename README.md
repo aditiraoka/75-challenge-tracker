@@ -13,12 +13,14 @@ To learn more about 75 hard challenge, checkout [this website](https://andyfrise
 ### 📁 Initial Project Structure
 ```bash
 75-day-tracker/
-├── electron/         # Electron main process
-├── frontend/         # Next.js frontend
-├── backend/          # Express server
-├── db/               # Local database config
-├── public/           # Static assets
-├── package.json      # Root package (Electron bootstrapper)
+├── electron/             # Electron main process
+├── frontend/             # Next.js frontend
+├── backend/              # Express server
+│    ├── prisma/
+│    │   └── schema.prisma   
+├── db/                   # Local database config
+├── public/               # Static assets
+├── package.json          # Root package (Electron bootstrapper)
 ├── .gitignore
 └── README.md
 ```
@@ -28,7 +30,7 @@ To learn more about 75 hard challenge, checkout [this website](https://andyfrise
 1. Download the project
 2. From the root directory run the following:
     Starting it in Dev environment
-    
+
     ```
         npm run dev
     ```
