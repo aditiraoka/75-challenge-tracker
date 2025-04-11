@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma =  new PrismaClient();
+const { PrismaClient } = await import('@prisma/client');
+const prisma = new PrismaClient();
 
 const getDummyTasks = async (req, res) => {
     try{

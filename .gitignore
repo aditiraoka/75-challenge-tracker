@@ -134,3 +134,15 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+
+# Prisma generated files
+/node_modules/
+/prisma/dev.db
+/prisma/dev.db-journal
+/prisma/migrations/*/README.md
+
+# SQLite-specific files
+*.db
+*.db-journal

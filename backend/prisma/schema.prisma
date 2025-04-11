@@ -11,16 +11,51 @@ datasource db {
   //url = "file:./dev.db"
 }
 
-model Day {
-  id Int @id @default(autoincrement())
-  date DateTime
-  tasks Task[]
+/**
+ * // OLD
+ * model Day {
+ * id    Int      @id @default(autoincrement())
+ * date  DateTime
+ * tasks Task[]
+ * }
+ * model Task {
+ * id       Int    @id @default(autoincrement())
+ * dayId    Int
+ * taskName String
+ * status   String //'Pending' or 'Done'
+ * day      Day    @relation(fields: [dayId], references: [id])
+ * }
+ * // OLD
+ */
+
+// Model for master list of tasks
+model taskRules {
+  id        Int   @id @default(autoincrement())
+  taskName  String   @unique
+  createdAt DateTime @default(now())
 }
 
-model Task{
-  id  Int @id @default(autoincrement())
-  dayId Int
-  taskName String
-  status String //'Pending' or 'Done'
-  day Day @relation(fields: [dayId], references: [id])
+// Model to represent each day
+model DailyLog {
+  id        Int   @id @default(autoincrement())
+  dayNumber Int
+  date      DateTime
+  logTasks  LogTask[]
+  createdAt DateTime  @default(now())
+
+  @@unique([dayNumber])
+}
+
+// Model for log of task for a particular day
+model LogTask {
+  id         Int   @id @default(autoincrement())
+  taskName   String
+  status     Status   @default(PENDING)
+  dailyLog   DailyLog @relation(fields: [dailyLogId], references: [id])
+  dailyLogId Int
+}
+
+enum Status {
+  DONE
+  PENDING
 }

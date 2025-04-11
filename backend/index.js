@@ -15,8 +15,17 @@ const ping = require('./routes/test');
 app.use('/api/ping', ping);
 
 //Task Routes
-const taskRoutes = require('./routes/tasks');
-app.use('/api/tasks', taskRoutes);
+//const taskRoutes = require('./routes/tasks');
+//app.use('/api/tasks', taskRoutes);
+
+//Habit Routes
+const taskRulesRoutes = require('./routes/taskRules')
+app.use('/api/habits', taskRulesRoutes);
+
+//Daily Logs Routes
+const dailyLgRoutes = require('./routes/dailyLog');
+app.use('/api/logs', dailyLgRoutes);
+
 
 //Start server
 app.listen(PORT, ()=> {
