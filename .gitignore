@@ -139,10 +139,6 @@ dist
 
 # Prisma generated files
 /node_modules/
-/prisma/dev.db
-/prisma/dev.db-journal
-/prisma/migrations/*/README.md
-
-# SQLite-specific files
-*.db
-*.db-journal
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/migrations/*/README.md
