@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "install-db":"cd backend && npx prisma generate && npx prisma migrate dev --name init && node prisma/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:frontend": "npm run dev --prefix frontend",
     "dev:electron": "wait-on http://localhost:3000 && cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron ./electron/main.js",

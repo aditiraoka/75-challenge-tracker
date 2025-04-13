@@ -65,6 +65,17 @@ npm run install-all
 ```
 3. Initialize Prisma + DB:
 ```bash
+npm run install-db
+```
+And if you want to inspect the DB:
+
+```bash
+cd backend
+npx prisma studio
+```
+
+OR install the DB seperately if the above commands give some error:
+```bash
 cd backend
 npx prisma generate
 npx prisma migrate dev --name init
