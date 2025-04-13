@@ -26,7 +26,7 @@ export default function DayDetailPage() {
   const isEditMode = searchParams.get('edit') === 'true';
 
   useEffect(() => {
-    console.log(`1. Id is ${id}`)
+    //console.log(`Id is ${id}`)
     if (id) {
       fetchLogById(Number(id)).then((data) => {
         setLog(data);
@@ -77,19 +77,28 @@ export default function DayDetailPage() {
 
       <div className="space-y-4">
         <div>
-          <label className="text-sm font-medium text-gray-600">📅 Date:</label>
-          <input
-            type="date"
-            value={dateInput}
-            onChange={(e) => setDateInput(e.target.value)}
-            className="ml-2 p-2 border rounded"
-          />
-          <button
-            onClick={handleDateUpdate}
-            className="ml-2 bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-          >
-            Update Date
-          </button>
+        {isEditMode ? (
+          <div>
+                <label className="text-sm font-medium text-gray-600">📅 Date:</label>
+                <input
+                  type="date"
+                  value={dateInput}
+                  onChange={(e) => setDateInput(e.target.value)}
+                  className="ml-2 p-2 border rounded"
+                />
+                <button
+                  onClick={handleDateUpdate}
+                  className="ml-2 bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                >
+                  Update Date
+                </button>
+          </div>
+              ) : (
+                <label className="text-sm font-medium text-gray-600">📅 Date: {dateInput}</label>
+              )}
+
+
+          
         </div>
 
         <div>
