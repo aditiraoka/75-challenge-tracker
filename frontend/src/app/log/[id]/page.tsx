@@ -13,11 +13,11 @@ import {
 } from '../../../../lib/api';
 
 export default function DayDetailPage() {
-  ///* old
+  //
   const { id } = useParams();
-  //*/
-  //const params = useParams(); //New
-  //const id = Number(params.logId); //New
+  //
+  //const params = useParams(); //Use if the above throws error
+  //const id = Number(params.logId); //Use if the above throws error
   console.log('logId to send:', id);
   const [log, setLog] = useState<DailyLog | null>(null);
   const [dateInput, setDateInput] = useState('');

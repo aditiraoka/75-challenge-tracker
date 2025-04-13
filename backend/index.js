@@ -8,15 +8,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-//Routes
+// ROUTES
 
 //Testing server
 const ping = require('./routes/test');
 app.use('/api/ping', ping);
-
-//Task Routes
-//const taskRoutes = require('./routes/tasks');
-//app.use('/api/tasks', taskRoutes);
 
 //Habit Routes
 const taskRulesRoutes = require('./routes/taskRules')

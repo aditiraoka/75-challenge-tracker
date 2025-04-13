@@ -1,17 +1,5 @@
 // types/index.ts
-/* Old Code
-export type Task = {
-    id: number;
-    taskName: string;
-    status: string;
-};
 
-export type Day = {
-    id: number;
-    date: string;
-    tasks: Task[];
-};
-*/
 export type Status = 'DONE' | 'PENDING';
 
 export interface LogTask {

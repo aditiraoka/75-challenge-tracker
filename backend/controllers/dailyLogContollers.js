@@ -119,20 +119,16 @@ const updateLogDate = async (req, res) => {
                 NOT: { id: { equals: Number(logId) } },
             },
         });
-        //console.log("1");
 
         //console.log(`existing date ${date} for log ${logId}`);
         if (existing) {
             return res.status(400).json({ error: 'Date already exists' });
         }
 
-        //console.log("2");
-
         const updated = await prisma.dailyLog.update({
         where: { id: Number(logId) },
         data: { date },
       });
-      //console.log("3");
       //console.log(`Updated log: ${updated}`);
       res.json(updated);
 

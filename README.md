@@ -58,18 +58,20 @@ To learn more about 75 hard challenge, checkout [this website](https://andyfrise
 </details>
 
 ## 🚀 Getting Started (Dev)
-0. Download the project
-1. Install Dependencies:
+1. Download the project
+2. Install Dependencies for all: Backend, Frontend and Electron:
 ```bash
-npm install
+npm run install-all
 ```
-2. Initialize Prisma + DB:
+3. Initialize Prisma + DB:
 ```bash
+cd backend
 npx prisma generate
 npx prisma migrate dev --name init
+node prisma\seed.js  #add day 1 log and tasks
 npx prisma studio # optional: inspect DB
 ```
-3. From the root directory, start all services:
+4. From the ROOT directory, start all services:
 ```bash
 npm run dev
 ```
@@ -81,10 +83,10 @@ This runs:
 
 ### 🧪 Dev Scripts That Are Run
 ```bash
-npm run dev         # Run everything (Electron + Frontend + Backend)
-npm run dev:fe      # Run frontend only
-npm run dev:be      # Run backend only
-npm run dev:electron # Run Electron only
+npm run dev            # Run everything (Electron + Frontend + Backend)
+npm run dev:frontend   # Run frontend only
+npm run dev:backend    # Run backend only
+npm run dev:electron   # Run Electron only
 ```
 
 ## 🙇‍♂️ Developer Notes

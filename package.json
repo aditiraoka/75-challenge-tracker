@@ -4,6 +4,7 @@
   "description": "A custom desktop app to track habits, weight, and journaling for a 75-day challenge. Built with Electron, Next.js, Node.js &amp; SQLite. Features include daily tracking, reminders, streaks, journaling, and data export. Designed for personal growth and learning full-stack desktop app dev.",
   "main": "index.js",
   "scripts": {
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:frontend": "npm run dev --prefix frontend",
     "dev:electron": "wait-on http://localhost:3000 && cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron ./electron/main.js",
