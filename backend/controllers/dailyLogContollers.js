@@ -1,7 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-
 //Fetch All Daily Logs
 const getAllDailyLogs = async (req, res) =>{
     try{
@@ -17,31 +16,34 @@ const getAllDailyLogs = async (req, res) =>{
 }
 
 //Create a new log for today
-const createLogForToday = async (req, res) => {
+const createNewLog = async (req, res) => {
     const { dayNumber, date } = req.body;
     try{
-        if(!dayNumber){
+        console.log(`dayNumber: ${dayNumber} and date: ${date}`);
+        if(!dayNumber || !date){
             return res.status(400).json({ error: "Day Number is required" });
         }
-        const today = new Date().toISOString().split('T')[0];
-        const logDate = date ? new Date(date) : new Date(today);
-        /*if(!date){
-            const today = new Date().toISOString().split('T')[0];
-            const date = new Date(today);
-        }*/
+        // Check if a log already exists for this day number
         const existingLog = await prisma.dailyLog.findFirst({
-            where: { dayNumber }
+            where: {
+                OR: [
+                  { dayNumber: Number(dayNumber) },
+                  { date } // ensure unique date
+                ]
+              }
         });
+
         if(existingLog){
             return res.status(400).json({ error: `A log already exits for this day ${dayNumber}` });
         }
+        
         //Get all task rules
         const allTaskRules = await prisma.taskRules.findMany();
 
         const newLog = await prisma.dailyLog.create({
             data: {
-                dayNumber,
-                date: logDate,
+                dayNumber: Number(dayNumber),
+                date,
                 logTasks: {
                     create: allTaskRules.map(task => ({
                         taskName: task.taskName,
@@ -92,41 +94,56 @@ const updateLogTask = async (req, res) => {
         });
     }
 }
-/*
-//Fetching daily log by date (yyy-mm-dd)
-const getDailyLogs = async (req, res) => {
-    const { date } = req.params;
-    try{
-        const log = await prisma.dailyLog.findFirst({
-            where: { date: new Date(date) },
-            include: { logTasks: true }
-        });
-        res.json(log);
-    }
-    catch(err){
-        res.status(404).json({ error: 'Log not found' });
-    }
-}
 
-//Update the task status (Done or Pending)
-const updateDailyTaskProgress = async (req, res) => {
-    const { taskId } = req.params;
-    const { status } = req.body;
-    try{
-        const updated = await prisma.logTask.update({
-            where: { id: taskId },
-            data: { status }
-        });
-        res.json(updated);
-    }
-    catch{
-        res.status(400).json({ error: 'Failed to update task status' });
-    }
-}
-*/
+//Update the date of the log
+const updateLogDate = async (req, res) => {
+    const { logId } = req.params;
+    const id = logId;
+    const { date } = req.body;
 
-module.exports = {
-    getAllDailyLogs,
-    createLogForToday,
-    updateLogTask,
+    if (!logId) {
+        return res.status(400).json({ error: 'logId param is missing' });
+    }
+  
+    if (!date) {
+      return res.status(400).json({ error: 'Date is required' });
+    }
+  
+    try {
+        console.log(`logId: ${logId} and date: ${date}`);
+
+        // Check if this date already exists for any other log
+        const existing = await prisma.dailyLog.findFirst({
+            where: {
+                date,
+                NOT: { id: { equals: Number(logId) } },
+            },
+        });
+        //console.log("1");
+
+        //console.log(`existing date ${date} for log ${logId}`);
+        if (existing) {
+            return res.status(400).json({ error: 'Date already exists' });
+        }
+
+        //console.log("2");
+
+        const updated = await prisma.dailyLog.update({
+        where: { id: Number(logId) },
+        data: { date },
+      });
+      //console.log("3");
+      //console.log(`Updated log: ${updated}`);
+      res.json(updated);
+
+    } catch (err) {
+      console.error('Error updating log date:', err);
+      res.status(500).json({ error: 'Failed to update log date', details: err.message });
+    }
+  };
+
+module.exports = { getAllDailyLogs, 
+    createNewLog, 
+    updateLogTask, 
+    updateLogDate 
 }

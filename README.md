@@ -22,20 +22,21 @@ To learn more about 75 hard challenge, checkout [this website](https://andyfrise
 75-day-tracker/
 ├── electron/             # Electron main process
 │   └── main.js
-├── frontend/
+├── frontend/src
 │   ├── app/
-│   │   ├── page.tsx            # Home page
-│   │   ├── layout.tsx          # Root layout
-│   │   └── api/                # API routes (if using server actions)
-│   ├── components/             # Reusable UI components
-│   │   ├── TaskCard.tsx        # Component for showing tasks of a day
-│   │   ├── DayCard.tsx         # Wraps one day and its tasks
-│   │   └── Header.tsx          # Optional header component
-│   ├── lib/                    # Utility functions (API calls, helpers)
-│   │   └── api.ts              # Fetch functions to call backend
-│   ├── types/                  # All TypeScript interfaces & types
+│   │   ├── page.tsx               # Home page
+│   │   ├── layout.tsx             # Root layout
+│   │   └── log/[id]               
+│   │        └── page.tsx
+│   ├── components/                # Reusable UI components
+│   │   ├── AddDailyLogForm.tsx    # Component for showing details and editing tasks of a day
+│   │   ├── DayCard.tsx            # Wraps one day and its tasks
+│   │   └── Header.tsx             # Optional header component
+│   ├── lib/                       # Utility functions (API calls, helpers)
+│   │   └── api.ts                 # Fetch functions to call backend
+│   ├── types/                     # All TypeScript interfaces & types
 │   │   └── index.ts
-│   ├── styles/                 # Global and component styles (if needed)
+│   ├── styles/                    # Global and component styles (if needed)
 │   │    └── globals.css
 │   ├── constants/                  # Static constants if needed
 │   │    └── index.ts
@@ -64,6 +65,7 @@ npm install
 ```
 2. Initialize Prisma + DB:
 ```bash
+npx prisma generate
 npx prisma migrate dev --name init
 npx prisma studio # optional: inspect DB
 ```

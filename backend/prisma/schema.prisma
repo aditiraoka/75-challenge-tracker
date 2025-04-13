@@ -1,3 +1,4 @@
+// backend\prisma\schema.prisma
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -11,23 +12,6 @@ datasource db {
   //url = "file:./dev.db"
 }
 
-/**
- * // OLD
- * model Day {
- * id    Int      @id @default(autoincrement())
- * date  DateTime
- * tasks Task[]
- * }
- * model Task {
- * id       Int    @id @default(autoincrement())
- * dayId    Int
- * taskName String
- * status   String //'Pending' or 'Done'
- * day      Day    @relation(fields: [dayId], references: [id])
- * }
- * // OLD
- */
-
 // Model for master list of tasks
 model taskRules {
   id        Int   @id @default(autoincrement())
@@ -39,7 +23,7 @@ model taskRules {
 model DailyLog {
   id        Int   @id @default(autoincrement())
   dayNumber Int
-  date      DateTime
+  date      String
   logTasks  LogTask[]
   createdAt DateTime  @default(now())
 
