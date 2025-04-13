@@ -138,8 +138,32 @@ const updateLogDate = async (req, res) => {
     }
   };
 
+// Delete Log for that Log Id
+const deleteLog = async (req, res) => {
+    const { logId } = req.params;
+
+    try{
+        //First delete all associated log tasks
+        await prisma.logTask.deleteMany({
+            where: { dailyLogId: Number(logId) }
+        });
+
+        console.log("Deleted all the logTasks");
+        // Then delete the daily log
+        await prisma.dailyLog.delete({
+            where: { id: Number(logId)}
+        });
+        console.log("Deleted the dailyLog");
+        res.json({ message: `Daily log with id ${logId} deleted successfully!`});
+    } catch (error){
+        console.error(error);
+        res.status(500).json({ error: `Failed to delete daily log with id ${logId}`})
+    }
+}
+
 module.exports = { getAllDailyLogs, 
     createNewLog, 
     updateLogTask, 
-    updateLogDate 
+    updateLogDate,
+    deleteLog,
 }

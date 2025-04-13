@@ -9,7 +9,8 @@ import {
   fetchLogById,
   updateLogTaskStatus,
   updateLogDate,
-  DailyLog
+  DailyLog,
+  deleteDailyLog
 } from '../../../../lib/api';
 
 export default function DayDetailPage() {
@@ -18,7 +19,7 @@ export default function DayDetailPage() {
   //
   //const params = useParams(); //Use if the above throws error
   //const id = Number(params.logId); //Use if the above throws error
-  console.log('logId to send:', id);
+  //console.log('logId to send:', id);
   const [log, setLog] = useState<DailyLog | null>(null);
   const [dateInput, setDateInput] = useState('');
   const [tasks, setTasks] = useState<LogTask[]>([]);
@@ -131,14 +132,33 @@ export default function DayDetailPage() {
         </ul>
         </div>
 
-        <div className='flex items-center'>
+        <div className='flex gap-4 mt-8'>
         <button
           onClick={() => router.push('/')}
-          className="px-4 py-2 bg-blue-900 text-white rounded"
-        >
-          Back to All Logs
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+          ⬅️ Back to All Logs
         </button>
-        </div>
+        
+        {isEditMode && (
+        <button
+          onClick={async () => {
+            const confirmed = confirm('⚠️ Are you sure you want to delete this daily log?');
+            if (confirmed) {
+              const result = await deleteDailyLog(Number(id));
+              if (result?.message) {
+                router.push('/');
+              } else {
+                alert('❌ Failed to delete log');
+              }
+            }
+          }}
+          className="flex-1 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          🗑️ Delete Log
+        </button>
+      )}
+    </div>
+
       </div>
     </main>
   );

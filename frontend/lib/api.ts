@@ -102,11 +102,10 @@ export async function updateLogDate({
   return res.json();
 }
 
-
-/*export async function fetchTasks(){
-    const res = await fetch('http://localhost:5000/api/tasks');
-    if(!res.ok){
-        throw new Error('Failed to fetch tasks');
-    }
-    return res.json();
-}*/
+export async function deleteDailyLog(logId: number): Promise<{message?: string; error?: string}> {
+    const res = await fetch(`http://localhost:5000/api/logs/${logId}`,
+      {
+        method: 'DELETE'
+      });
+      return res.json();
+}
