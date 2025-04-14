@@ -1,0 +1,35 @@
+{
+  "name": "75-challenge-tracker",
+  "version": "1.0.0",
+  "description": "A custom desktop app to track habits, weight, and journaling for a 75-day challenge. Built with Electron, Next.js, Node.js &amp; SQLite. Features include daily tracking, reminders, streaks, journaling, and data export. Designed for personal growth and learning full-stack desktop app dev.",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "install-db":"cd backend && npx prisma generate && npx prisma migrate dev --name init && node prisma/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:electron": "wait-on http://localhost:3000 && cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron ./electron/main.js",
+    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently -k -n BACKEND,FRONTEND,ELECTRON -c green,cyan,magenta \"npm run dev:frontend\" \"npm run dev:electron\" \"npm run dev:backend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditiraoka/75-challenge-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aditiraoka/75-challenge-tracker/issues"
+  },
+  "homepage": "https://github.com/aditiraoka/75-challenge-tracker#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^35.1.4",
+    "electron-reload": "^2.0.0-alpha.1",
+    "nodemon": "^3.1.9",
+    "wait-on": "^8.0.3"
+  }
+}

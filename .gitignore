@@ -134,3 +134,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+
+# Prisma generated files
+/node_modules/
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/migrations/*/README.md
